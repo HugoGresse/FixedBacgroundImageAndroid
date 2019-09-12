@@ -18,6 +18,7 @@ class MainActivity : AppCompatActivity(), Runnable {
 
         fixedBackgroundImagePlugin = FixedBackgroundImagePlugin(
             Plugin.Listener { Log.d(TAG, "onPluginLoaded") },
+            this,
             "https://hugo.gresse.io/teads/mankeo.jpg",
             ImageDownloader()
         )

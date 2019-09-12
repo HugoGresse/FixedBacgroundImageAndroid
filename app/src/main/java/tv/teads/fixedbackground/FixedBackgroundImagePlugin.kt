@@ -1,5 +1,6 @@
 package tv.teads.fixedbackground
 
+import android.content.Context
 import android.graphics.Bitmap
 import android.util.Log
 import android.view.ViewGroup
@@ -7,6 +8,7 @@ import java.lang.ref.WeakReference
 
 class FixedBackgroundImagePlugin(
     private val listener: Plugin.Listener?,
+    context: Context,
     imageUrl: String,
     imageDownloader: ImageDownloader
 ) : Plugin, ImageDownloader.ImageDownloaderCallback {
@@ -22,7 +24,7 @@ class FixedBackgroundImagePlugin(
         playerViewGroup = WeakReference<ViewGroup>(null)
 
         Log.d(TAG, "Download image: $imageUrl")
-        imageDownloader.getBitmap(imageUrl, this)
+        imageDownloader.getBitmap(context, this)
     }
 
     override fun setPlayerView(viewGroup: ViewGroup) {
