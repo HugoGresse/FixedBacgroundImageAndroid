@@ -1,6 +1,8 @@
 # FixedBacgroundImageAndroid
 Display an image that appear to be fixed in position while the parent ScrollView is moving (like css background fixed). 
 
+![demo](https://github.com/HugoGresse/FixedBacgroundImageAndroid/blob/master/demo-bugy.gif)
+
 ### Mechanism
 The image top is moved every 10ms based on the parent view `locationOnScreen`. 
 
