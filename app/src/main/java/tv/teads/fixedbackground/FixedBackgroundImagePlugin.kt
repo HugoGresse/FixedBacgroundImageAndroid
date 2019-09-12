@@ -12,7 +12,7 @@ class FixedBackgroundImagePlugin(
 ) : Plugin, ImageDownloader.ImageDownloaderCallback {
     private var bitmap: Bitmap? = null
     private var playerViewGroup: WeakReference<ViewGroup>? = null
-    private var vackgroundImageFrameLayout: BackgroundImageFrameLayout? = null
+    private var backgroundImageFrameLayout: BackgroundImageFrameLayout? = null
 
     private var lastYPosition = 0
     private var yPosition: Int = 0
@@ -31,18 +31,18 @@ class FixedBackgroundImagePlugin(
     }
 
     override fun update(locationOnScreen: IntArray) {
-        if (vackgroundImageFrameLayout == null) {
+        if (backgroundImageFrameLayout == null) {
             return
         }
         yPosition = parentLocationOnScreen[1] - locationOnScreen[1]
-        vackgroundImageFrameLayout!!.top = 2 * yPosition - lastYPosition - 10
+        backgroundImageFrameLayout!!.top = 2 * yPosition - lastYPosition - 10
         lastYPosition = yPosition
     }
 
     override fun release() {
-        if (vackgroundImageFrameLayout != null) {
-            vackgroundImageFrameLayout!!.cleanDisplayImage()
-            vackgroundImageFrameLayout = null
+        if (backgroundImageFrameLayout != null) {
+            backgroundImageFrameLayout!!.cleanDisplayImage()
+            backgroundImageFrameLayout = null
         }
     }
 
@@ -63,12 +63,12 @@ class FixedBackgroundImagePlugin(
             return
         }
         try {
-            vackgroundImageFrameLayout = BackgroundImageFrameLayout(playerGroupViewGroup.context)
-            vackgroundImageFrameLayout!!.setBackground(bitmap!!)
-            playerGroupViewGroup.addView(vackgroundImageFrameLayout, 0)
+            backgroundImageFrameLayout = BackgroundImageFrameLayout(playerGroupViewGroup.context)
+            backgroundImageFrameLayout?.setBackground(bitmap!!)
+            playerGroupViewGroup.addView(backgroundImageFrameLayout, 0)
             playerGroupViewGroup.requestLayout()
 
-            val scrollableParent = getFirstScrollableParent(vackgroundImageFrameLayout) ?: return
+            val scrollableParent = getFirstScrollableParent(backgroundImageFrameLayout) ?: return
             scrollableParent.getLocationOnScreen(parentLocationOnScreen)
         } catch (e: Exception) {
             e.printStackTrace()

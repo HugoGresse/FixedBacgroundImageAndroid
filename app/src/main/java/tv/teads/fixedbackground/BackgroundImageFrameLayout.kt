@@ -32,7 +32,7 @@ class BackgroundImageFrameLayout(context: Context) : FrameLayout(context) {
 
     /**
      * Resize the back ground width a given width to match perfectly this view.
-     * If the displayImage is not big enough, it will be repeat
+     * If the displayImage is not big enough, it will be repeated
      *
      * @param width the with to resize
      */
