@@ -25,18 +25,19 @@ class MainActivity : AppCompatActivity(), Runnable {
 
         fixedBackgroundImagePlugin.setPlayerView(fixedBackgroundImageLayout)
 
-        handler.postDelayed(this, 10)
+        handler.postDelayed(this, RUN_MS)
     }
 
     override fun run() {
-        fixedBackgroundImageLayout.getLocationOnScreen(locationOnScreen)
+        scrollViewContainer.getLocationOnScreen(locationOnScreen)
         fixedBackgroundImagePlugin.update(locationOnScreen)
 
-        handler.postDelayed(this, 10)
+        handler.postDelayed(this, RUN_MS)
     }
 
     companion object {
         private const val TAG = "MainActivity"
+        private const val RUN_MS = 10L
     }
 }
 

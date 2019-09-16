@@ -4,7 +4,9 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.util.Log
 import android.view.ViewGroup
+import android.widget.ScrollView
 import java.lang.ref.WeakReference
+import kotlin.math.absoluteValue
 
 class FixedBackgroundImagePlugin(
     private val listener: Plugin.Listener?,
@@ -19,6 +21,7 @@ class FixedBackgroundImagePlugin(
     private var lastYPosition = 0
     private var yPosition: Int = 0
     private val parentLocationOnScreen = IntArray(2)
+    private var scrollView: ScrollView? = null
 
     init {
         playerViewGroup = WeakReference<ViewGroup>(null)
@@ -29,16 +32,26 @@ class FixedBackgroundImagePlugin(
 
     override fun setPlayerView(viewGroup: ViewGroup) {
         playerViewGroup = WeakReference(viewGroup)
+        scrollView = viewGroup.parent as ScrollView
         displayImage()
     }
 
     override fun update(locationOnScreen: IntArray) {
-        if (backgroundImageFrameLayout == null) {
+        if (backgroundImageFrameLayout == null || scrollView == null) {
             return
         }
         yPosition = parentLocationOnScreen[1] - locationOnScreen[1]
-        backgroundImageFrameLayout!!.top = 2 * yPosition - lastYPosition - 10
+
+//        val scrollTo = 2 * yPosition - lastYPosition - 10
+//        Log.d(TAG, "yPosition $yPosition")
+        // backgroundImageFrameLayout!!.top = 2 * yPosition - lastYPosition - 10
+        scrollTo(yPosition.absoluteValue)
         lastYPosition = yPosition
+    }
+
+    private fun scrollTo(value: Int) {
+        Log.d(TAG, "scrollTo $value")
+        scrollView?.smoothScrollTo(0, value)
     }
 
     override fun release() {

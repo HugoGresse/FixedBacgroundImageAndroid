@@ -23,10 +23,17 @@
             android:layout_height="wrap_content"
             android:text="@string/ipsum" />
 
-        <FrameLayout
-            android:id="@+id/fixedBackgroundImageLayout"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="200dp"/>
+            android:id="@+id/scrollViewContainer"
+            android:layout_height="200dp">
+
+            <FrameLayout
+                android:id="@+id/fixedBackgroundImageLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </ScrollView>
 
         <TextView
             android:layout_width="match_parent"

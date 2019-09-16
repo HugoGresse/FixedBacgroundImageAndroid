@@ -13,7 +13,7 @@ fun getFirstScrollableParent(view: View?): View? {
     if (view == null || view.parent == null) {
         return null
     }
-    return if (view is ScrollView || view is ScrollingView || view is ListView
+    return if (((view is ScrollView || view is ScrollingView || view is ListView) && view.id != R.id.scrollViewContainer)
         || view === view.rootView
     ) {
         view
