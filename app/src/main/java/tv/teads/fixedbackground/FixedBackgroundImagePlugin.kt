@@ -16,9 +16,6 @@ class FixedBackgroundImagePlugin(
     private var playerViewGroup: WeakReference<ViewGroup>? = null
     private var backgroundImageFrameLayout: BackgroundImageFrameLayout? = null
 
-    private var lastYPosition = 0
-    private var yPosition: Int = 0
-    private val parentLocationOnScreen = IntArray(2)
 
     init {
         playerViewGroup = WeakReference<ViewGroup>(null)
@@ -33,12 +30,7 @@ class FixedBackgroundImagePlugin(
     }
 
     override fun update(locationOnScreen: IntArray) {
-        if (backgroundImageFrameLayout == null) {
-            return
-        }
-        yPosition = parentLocationOnScreen[1] - locationOnScreen[1]
-        backgroundImageFrameLayout!!.top = 2 * yPosition - lastYPosition - 10
-        lastYPosition = yPosition
+        backgroundImageFrameLayout!!.invalidate()
     }
 
     override fun release() {
@@ -69,9 +61,6 @@ class FixedBackgroundImagePlugin(
             backgroundImageFrameLayout?.setBackground(bitmap!!)
             playerGroupViewGroup.addView(backgroundImageFrameLayout, 0)
             playerGroupViewGroup.requestLayout()
-
-            val scrollableParent = getFirstScrollableParent(backgroundImageFrameLayout) ?: return
-            scrollableParent.getLocationOnScreen(parentLocationOnScreen)
         } catch (e: Exception) {
             e.printStackTrace()
         }

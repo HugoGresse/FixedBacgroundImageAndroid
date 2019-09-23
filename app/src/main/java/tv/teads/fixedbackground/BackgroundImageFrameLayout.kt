@@ -2,6 +2,7 @@ package tv.teads.fixedbackground
 
 import android.content.Context
 import android.graphics.Bitmap
+import android.graphics.Canvas
 import android.graphics.Shader
 import android.graphics.drawable.BitmapDrawable
 import android.view.ViewGroup
@@ -13,6 +14,7 @@ import android.widget.FrameLayout
 class BackgroundImageFrameLayout(context: Context) : FrameLayout(context) {
 
     private var displayImage: Bitmap? = null
+    private var tempLocation = IntArray(2)
 
     init {
         layoutParams = LayoutParams(
@@ -24,6 +26,26 @@ class BackgroundImageFrameLayout(context: Context) : FrameLayout(context) {
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
         resizeBackground(MeasureSpec.getSize(widthMeasureSpec))
+    }
+
+    override fun onDraw(canvas: Canvas?) {
+        super.onDraw(canvas)
+
+        if(background == null || canvas == null){
+            return
+        }
+
+        // Get the location of this view on the screen to compute its top and bottom coordinates.
+        getLocationOnScreen(tempLocation)
+        val imageTop = tempLocation[1]
+        val imageBottom = imageTop + height
+
+        // Draw the slice of the image that should be viewable.
+        canvas.save()
+        canvas.translate(0f, -imageTop.toFloat())
+        background?.setBounds(0, imageTop, width, imageBottom)
+        background?.draw(canvas)
+        canvas.restore()
     }
 
     fun setBackground(bitmap: Bitmap) {
