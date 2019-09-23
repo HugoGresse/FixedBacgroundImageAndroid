@@ -11,11 +11,6 @@ public interface Plugin {
     void setPlayerView(ViewGroup viewGroup);
 
     /**
-     * Update the plugin (it would maybe change some UI or do what it need to do)
-     */
-    void update(int[] locationOnScreen);
-
-    /**
      * Release the resources used in the plugin
      */
     void release();

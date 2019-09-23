@@ -29,10 +29,6 @@ class FixedBackgroundImagePlugin(
         displayImage()
     }
 
-    override fun update(locationOnScreen: IntArray) {
-        backgroundImageFrameLayout!!.invalidate()
-    }
-
     override fun release() {
         if (backgroundImageFrameLayout != null) {
             backgroundImageFrameLayout!!.cleanDisplayImage()
@@ -64,7 +60,6 @@ class FixedBackgroundImagePlugin(
         } catch (e: Exception) {
             e.printStackTrace()
         }
-
     }
 
     companion object {

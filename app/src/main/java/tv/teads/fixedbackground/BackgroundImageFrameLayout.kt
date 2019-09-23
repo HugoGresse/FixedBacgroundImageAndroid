@@ -21,6 +21,10 @@ class BackgroundImageFrameLayout(context: Context) : FrameLayout(context) {
             ViewGroup.LayoutParams.MATCH_PARENT,
             ViewGroup.LayoutParams.MATCH_PARENT
         )
+
+        viewTreeObserver.addOnScrollChangedListener {
+            invalidate()
+        }
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
